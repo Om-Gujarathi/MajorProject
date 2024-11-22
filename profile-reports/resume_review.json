@@ -1,0 +1,100 @@
+```
+{
+  "candidate": "Sanskar Gundecha",
+  "strengths": [
+    {
+      "id": 1,
+      "description": "Strong technical skills in programming languages such as Java, Python, C++, C, SQL, Dart, and JavaScript",
+      "evidence": "Technical Skills section"
+    },
+    {
+      "id": 2,
+      "description": "Experience in web development frameworks such as ReactJS, Angular, Node/NPM, Django, and Express",
+      "evidence": "Technical Skills section"
+    },
+    {
+      "id": 3,
+      "description": "Experience in app development using Flutter and Java",
+      "evidence": "Technical Skills section"
+    },
+    {
+      "id": 4,
+      "description": "Strong problem-solving skills, with achievements in coding competitions such as Codathon, CodeChef, LeetCode, and HackerRank",
+      "evidence": "Achievements section"
+    },
+    {
+      "id": 5,
+      "description": "Leadership skills, with experience leading a C++ workshop for students",
+      "evidence": "Experience section"
+    }
+  ],
+  "weaknesses": [
+    {
+      "id": 1,
+      "description": "Limited work experience, with only two internships and one part-time job",
+      "evidence": "Experience section"
+    },
+    {
+      "id": 2,
+      "description": "Lack of experience in working with large teams or on complex projects",
+      "evidence": "Experience section"
+    },
+    {
+      "id": 3,
+      "description": "Limited experience in data analysis and machine learning, despite having skills in these areas",
+      "evidence": "Technical Skills section"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": 1,
+      "description": "Growing demand for skilled software developers in the industry",
+      "evidence": "Job market trends"
+    },
+    {
+      "id": 2,
+      "description": "Opportunities to work on complex projects and collaborate with large teams",
+      "evidence": "Job market trends"
+    },
+    {
+      "id": 3,
+      "description": "Potential to leverage skills in machine learning and data analysis to work on innovative projects",
+      "evidence": "Technical Skills section"
+    }
+  ],
+  "threats": [
+    {
+      "id": 1,
+      "description": "High competition in the job market for software developers",
+      "evidence": "Job market trends"
+    },
+    {
+      "id": 2,
+      "description": "Constantly evolving technology landscape, requiring continuous learning and skill updates",
+      "evidence": "Job market trends"
+    },
+    {
+      "id": 3,
+      "description": "Potential for job automation, particularly in areas such as data analysis and machine learning",
+      "evidence": "Job market trends"
+    }
+  ],
+  "suggestions": [
+    {
+      "id": 1,
+      "description": "Gain more work experience through internships or part-time jobs to build a stronger portfolio",
+      "action": "Apply for internships or part-time jobs"
+    },
+    {
+      "id": 2,
+      "description": "Develop skills in data analysis and machine learning to stay competitive in the job market",
+      "action": "Take online courses or attend workshops to develop skills in data analysis and machine learning"
+    },
+    {
+      "id": 3,
+      "description": "Network with professionals in the industry to learn about job opportunities and best practices",
+      "action": "Attend industry events or join professional organizations"
+    }
+  ]
+}
+```

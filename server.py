@@ -10,7 +10,7 @@ from resume_swot_analyse import analyze_resume
 app = Flask(__name__)
 CORS(app)
 
-# Job queue to handle tasks
+# Job queue to handle ManyTasks
 job_queue = Queue()
 results = {}
 i = 0
