@@ -1,0 +1,7 @@
+crewai
+langchain_groq
+flask
+flask_cors
+PyPDF2
+linkedin_api
+scholarly
