@@ -6,12 +6,14 @@ from tasks import tasks
 from ManyTasks.leetcode_tasks import leetcode_tasks
 from ManyTasks.linkedin_tasks import linkedin_tasks
 from ManyTasks.github_tasks import github_tasks
+from ManyTasks.merger_tasks import merger_tasks
 
 # Agents
 from agents import agents
 from ManyAgents.leetcode_agent import leetcode_agent
 from ManyAgents.linkedin_agent import linkedin_agent
 from ManyAgents.github_agent import github_agent
+from ManyAgents.merger_agent import merger_agent
 
 from utils.read_from_pdf import get_resume_text_and_links
 from utils.links_extractor import extract_usernames
@@ -42,7 +44,7 @@ def analyze_resume(resume_file_path: str, jd: str):
         )
 
         result = crew.kickoff()
-        json_result = json.dumps(result, default=str, separators=(",", ":"))
+        json_swot = json.dumps(result, default=str, separators=(",", ":"))
 
         # leetcode
         leetcode_analyser = leetcode_agent(llm)
@@ -55,7 +57,7 @@ def analyze_resume(resume_file_path: str, jd: str):
             process=Process.sequential
         )
         result2 = crew2.kickoff()
-        json_result2 = json.dumps(result2, default=str, separators=(",", ":"))
+        json_leetcode = json.dumps(result2, default=str, separators=(",", ":"))
 
         # linkedin
 
@@ -71,12 +73,12 @@ def analyze_resume(resume_file_path: str, jd: str):
             process=Process.sequential
         )
         result3 = crew3.kickoff()
-        json_result3 = json.dumps(result3, default=str, separators=(",", ":"))
+        json_linkedin = json.dumps(result3, default=str, separators=(",", ":"))
 
         # github
 
         llm3 = ChatGroq(model="groq/llama-3.2-1b-preview", temperature=0)
-
+        llm3 = ChatGroq(model="groq/llama3-70b-8192", temperature=0)
         github_analyser = github_agent(llm3)
         github_analysis = github_tasks(llm3, data["github"])
 
@@ -87,8 +89,20 @@ def analyze_resume(resume_file_path: str, jd: str):
             process=Process.sequential
         )
         result4 = crew4.kickoff()
-        json_result4 = json.dumps(result4, default=str, separators=(",", ":"))
+        json_github = json.dumps(result4, default=str, separators=(",", ":"))
 
-        return {json_result, json_result2, json_result3, json_result4}
+        merger_a = merger_agent(llm3)
+        merger_t = merger_tasks(llm3, json_leetcode, json_github, json_linkedin)
+
+        crew4 = Crew(
+            agents=[merger_a],
+            tasks=[merger_t],
+            verbose=1,
+            process=Process.sequential
+        )
+        final_result = crew4.kickoff()
+        final_json = json.dumps(final_result, default=str, separators=(",", ":"))
+
+        return final_json
     except Exception as e:
         return {"error": str(e)}
