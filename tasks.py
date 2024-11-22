@@ -8,20 +8,20 @@ def tasks(llm, resume_content, leetcode_data):
     resume_swot_analysis- understand the report and the resume based on this make a swot analysis
     '''
 
-    candidate_analyser = agents(llm)
+    candidate_analyser, resume_swot_analyser = agents(llm)
 
-    # resume_swot_analysis = Task(
-    #
-    #     description=f'Resume Content: {resume_content} \n Analyse the resume provided and the report of job_requirements_researcher to provide a detailed SWOT analysis report on the resume along with the Resume Match Percentage and Suggestions to improve. Strictly follow json format as the entire answer should complete a json check further. Remove the rest of the data which doesnt follow json format.',
-    #     expected_output='A JSON formatted report as follows: "candidate": candidate, "strengths":[strengths], "weaknesses":[weaknesses], "opportunities":[opportunities], "threats":[threats], "resume_match_percentage": resume_match_percentage, "suggestions": "suggestions"',
-    #     agent=resume_swot_analyser,
-    #     output_file='resume-report/resume_review.json'
-    # )
+    resume_swot_analysis = Task(
+
+        description=f'Resume Content: {resume_content} \n Analyse the resume provided and give detailed SWOT analysis report on the resume along with the Suggestions to improve. Strictly follow json format as the entire answer should complete a json check further. Remove the rest of the data which doesnt follow json format.',
+        expected_output='A JSON formatted report as follows: "candidate": candidate, "strengths":[strengths], "weaknesses":[weaknesses], "opportunities":[opportunities], "threats":[threats],',
+        agent=resume_swot_analyser,
+        output_file='resume-report/resume_review.json'
+    )
 
     # LeetCode Analysis Task
     leetcode_analysis = Task(
-        description=f'LeetCode Profile Content: {leetcode_data} \n Analyse the LeetCode profile provided and generate a JSON formatted report with the following: candidate_name, "strengths":[strengths], "weaknesses":[weaknesses], "opportunities":[opportunities], "threats":[threats], "leetcode_score": leetcode_score, "suggestions": "suggestions". Strictly follow json format as the entire answer should complete a json check further. Remove the rest of the data which doesnt follow json format.',
-        expected_output='A JSON formatted report as follows: "candidate_name": candidate_name, "strengths":[strengths], "weaknesses":[weaknesses], "opportunities":[opportunities], "threats":[threats], "leetcode_score": leetcode_score, "suggestions": "suggestions"',
+        description=f'LeetCode Profile Content: {leetcode_data} \n Analyse the LeetCode profile provided and give score out of 10. Generate a JSON formatted report with the following: candidate_name, "leetcode_score": leetcode_score, "suggestions": [suggestions]. Strictly follow json format as the entire answer should complete a json check further.',
+        expected_output='A JSON formatted report as follows: candidate_name, "leetcode_score": leetcode_score, "suggestions": [suggestions].',
         agent=candidate_analyser,
         output_file='profile-reports/leetcode_review.json'
     )
@@ -50,4 +50,4 @@ def tasks(llm, resume_content, leetcode_data):
     #     output_file='profile-reports/linkedin_review.json'
     # )
 
-    return leetcode_analysis
+    return leetcode_analysis, resume_swot_analysis

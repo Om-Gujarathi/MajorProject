@@ -18,13 +18,13 @@ def analyze_resume(resume_file_path: str, jd: str):
         data = collect_user_data(usernames)
         print(data["leetcode"], "\n\n\n")
         # Create agents and tasks
-        resume_swot_analyser = agents(llm)
-        resume_swot_analysis = tasks(llm, resume_text, data["leetcode"])
+        candidate_analyser, resume_swot_analyser = agents(llm)
+        leetcode_analysis, resume_swot_analysis = tasks(llm, resume_text, data["leetcode"])
 
         # Build Crew and execute
         crew = Crew(
-            agents=[resume_swot_analyser],
-            tasks=[resume_swot_analysis],
+            agents=[resume_swot_analyser, candidate_analyser],
+            tasks=[resume_swot_analysis, leetcode_analysis],
             verbose=1,
             process=Process.sequential
         )

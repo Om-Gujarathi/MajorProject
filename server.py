@@ -3,6 +3,7 @@ from flask_cors import CORS
 from queue import Queue
 from threading import Thread
 import os
+import json
 
 from resume_swot_analyse import analyze_resume
 
@@ -60,14 +61,34 @@ def upload():
         return jsonify({"error": str(e)}), 500
 
 
+# @app.route('/status/<job_id>', methods=['GET'])
+# def status(job_id):
+#     if job_id in results:
+#         return jsonify({"status": "completed", "result": results[job_id]})
+#     elif any(job_id == job[0] for job in job_queue.queue):
+#         return jsonify({"status": "in progress"})
+#     else:
+#         return jsonify({"status": "unknown job ID"}), 404
+
+
 @app.route('/status/<job_id>', methods=['GET'])
 def status(job_id):
-    if job_id in results:
-        return jsonify({"status": "completed", "result": results[job_id]})
-    elif any(job_id == job[0] for job in job_queue.queue):
-        return jsonify({"status": "in progress"})
-    else:
-        return jsonify({"status": "unknown job ID"}), 404
+    file_path = "profile-reports/leetcode_review.json"
+
+    try:
+        if job_id in results:
+            # Load JSON data from file
+            with open(file_path, 'r', encoding='utf-8') as file:
+                file_data = json.load(file)
+            return jsonify({"status": "completed", "result": file_data})
+        elif any(job_id == job[0] for job in job_queue.queue):
+            return jsonify({"status": "in progress"})
+        else:
+            return jsonify({"status": "unknown job ID"}), 404
+    except FileNotFoundError:
+        return jsonify({"status": "error", "message": "Result file not found."}), 500
+    except json.JSONDecodeError:
+        return jsonify({"status": "error", "message": "Error decoding JSON data."}), 500
 
 
 if __name__ == '__main__':
