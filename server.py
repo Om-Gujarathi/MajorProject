@@ -14,13 +14,6 @@ job_queue = Queue()
 results = {}
 i = 0
 
-
-# Dummy function: replace with your actual function
-def match_resume_to_job(resume, job_description):
-    # Simulate processing
-    return {"match_score": 85, "feedback": "Good fit for the role!"}
-
-
 def process_queue():
     while True:
         job_id, resume_path, job_description = job_queue.get()
@@ -28,12 +21,13 @@ def process_queue():
             print(job_id, " Processing Started \n")
             result = analyze_resume(resume_path, job_description)
         except Exception as e:
-            result = {"error": str(e)}
+            result = {"error in process queue": str(e)}
         finally:
             # Save the result and remove the temporary file
             results[job_id] = result
             # os.remove(resume_path)
             job_queue.task_done()
+            print(results[job_id])
             print(job_id, " Completed \n")
 
 
@@ -45,6 +39,7 @@ worker_thread.start()
 @app.route('/upload', methods=['POST'])
 def upload():
     try:
+        global i
         # print("Hi")
         # Get the uploaded resume and job description
         resume = request.files['resume']
@@ -57,7 +52,7 @@ def upload():
 
         # Generate a unique job ID
         job_id = f"job-{i + 1}"
-
+        i = i + 1
         # Add the task to the job queue
         job_queue.put((job_id, resume_path, job_description))
         return jsonify({"message": "Job submitted successfully.", "job_id": job_id})
