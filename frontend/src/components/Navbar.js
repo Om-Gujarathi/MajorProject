@@ -32,16 +32,16 @@ const Navbar = () => {
             Upload
           </a>
           <a
-            href="/reccomend"
+            href="/ranking"
             className="font-semibold text-orange-700 hover:text-orange-900 transition-colors duration-300 hover:underline py-2"
           >
-            Recommendation
+            Ranking
           </a>
           <a
-            href="/cost"
+            href="/plan"
             className="font-semibold text-orange-700 hover:text-orange-900 transition-colors duration-300 hover:underline py-2"
           >
-            Pricing
+            Our Plan
           </a>
         </div>
 

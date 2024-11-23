@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { submitFormData } from "../services/api";
 
-const Upload = () => {
-  const [projectCount, setProjectCount] = useState(0);
-  const [projectLinks, setProjectLinks] = useState([]);
+const Upload = () => {    
   const [resume, setResume] = useState(null);
   const [jdFile, setJdFile] = useState(null);
   const [jdText, setJdText] = useState('');
@@ -15,17 +13,6 @@ const Upload = () => {
     github: ''
   });
 
-  const handleProjectCountChange = (e) => {
-    const count = parseInt(e.target.value, 10);
-    setProjectCount(count);
-    setProjectLinks(new Array(count).fill(''));
-  };
-
-  const handleProjectLinkChange = (index, value) => {
-    const newLinks = [...projectLinks];
-    newLinks[index] = value;
-    setProjectLinks(newLinks);
-  };
 
   const handleProfileLinkChange = (e) => {
     const { name, value } = e.target;
@@ -52,11 +39,6 @@ const Upload = () => {
 
     // Create a new FormData object
     const formData = new FormData();
-
-    // Append form fields
-    formData.append('projectCount', projectCount);
-    formData.append('projectLinks', JSON.stringify(projectLinks));
-    formData.append('profileLinks', JSON.stringify(profileLinks));
 
     if (jdOption === 'text' && jdText) {
       formData.append('job_description', jdText);
@@ -198,24 +180,6 @@ const Upload = () => {
           <div className="w-full border-b-4 border-orange-300 mb-4"></div>
           <form>
             <div className="grid grid-cols-1 justify-center items-center gap-6">
-              <div>
-                <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
-                    className="w-10 h-10 object-cover"
-                    alt="HackerRank"
-                  />
-                  HackerRank Linkcd
-                </label>
-                <input
-                  type="url"
-                  name="hackerRank"
-                  value={profileLinks.hackerRank}
-                  onChange={handleProfileLinkChange}
-                  className="w-full px-4 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
-                  placeholder="https://www.hackerrank.com/yourprofile"
-                />
-              </div>
               <div>
                 <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
                   <img

@@ -16,3 +16,14 @@ export const submitFormData = async (formData) => {
     throw error;
   }
 };
+
+export const getAllStudent = async () => {
+  try {
+    const response = await axiosInstance.get('/rank');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting form data:', error);
+    throw error;
+  }
+};
