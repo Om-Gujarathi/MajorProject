@@ -2,6 +2,8 @@ from crewai import Crew, Process
 from langchain_groq import ChatGroq
 
 # Tasks
+from ManyAgents.match_jd_agent import match_jd_agent
+from ManyTasks.match_jd_tasks import match_jd_tasks
 from tasks import tasks
 from ManyTasks.leetcode_tasks import leetcode_tasks
 from ManyTasks.linkedin_tasks import linkedin_tasks
@@ -19,6 +21,8 @@ from utils.read_from_pdf import get_resume_text_and_links
 from utils.links_extractor import extract_usernames
 from getdata.collector import collect_user_data
 import json
+
+from utils.remove_backticks import extract_json_from_backticks
 
 
 def analyze_resume(resume_file_path: str, jd: str):
@@ -91,8 +95,24 @@ def analyze_resume(resume_file_path: str, jd: str):
         result4 = crew4.kickoff()
         json_github = json.dumps(result4, default=str, separators=(",", ":"))
 
+        # MatchJD
+
+        llm5 = ChatGroq(model="groq/llama-3.2-90b-text-preview", temperature=0)
+        jd_analyser = match_jd_agent(llm5)
+        jd_analysis = match_jd_tasks(llm5, resume_text, jd)
+
+        crew5 = Crew(
+            agents=[jd_analyser],
+            tasks=[jd_analysis],
+            verbose=1,
+            process=Process.sequential
+        )
+        result5 = crew5.kickoff()
+        json_jd = json.dumps(result5, default=str, separators=(",", ":"))
+
+        # Merger
         merger_a = merger_agent(llm3)
-        merger_t = merger_tasks(llm3, json_leetcode, json_github, json_linkedin)
+        merger_t = merger_tasks(llm3, json_leetcode, json_github, json_linkedin, json_jd, json_swot)
 
         crew4 = Crew(
             agents=[merger_a],
@@ -103,6 +123,18 @@ def analyze_resume(resume_file_path: str, jd: str):
         final_result = crew4.kickoff()
         final_json = json.dumps(final_result, default=str, separators=(",", ":"))
 
-        return final_json
+        extract_json_from_backticks("Jobs/final.json", "Jobs/final.json")
+
+        try:
+            with open("Jobs/final.json", "r") as file:
+                json_content = json.load(file)  # Load the JSON content
+            return json_content  # Return the loaded JSON data as a Python object
+        except FileNotFoundError:
+            print(f"Error: The file was not found.")
+            return None
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            return None
+
     except Exception as e:
         return {"error": str(e)}
