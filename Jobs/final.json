@@ -1,21 +1,21 @@
-{
-  "candidate_name": "Sanskar_Gundecha_03",
-  "leetcode_score": 8.5,
-  "github_score": 8,
-  "linkedin_score": 8.5,
-  "strengths": [
-    "Active engagement in updating professional network",
-    "Demonstrated expertise in back-end engineering, problem-solving, and coding platforms (Ridecell, CodeChef, LeetCode)",
-    "Certified skills in SQL and data management",
-    "Proactively seeking learning opportunities (Web Development Intern at Prodigy InfoTech, SQL Certification Course)"
-  ],
-  "suggestions": [
-    "Continue to practice and improve problem-solving skills, especially in hard difficulty problems.",
-    "Expand language skills beyond Java, as only 5 problems have been solved in C++ and 1 in JavaScript.",
-    "Participate in more contests to improve ranking and top percentage.",
-    "Focus on improving skills in advanced tags such as Game Theory, Bitmask, and Quickselect.",
-    "Practice more problems in fundamental tags such as Matrix, Simulation, and Enumeration to improve overall problem-solving skills.",
-    "The candidate has a decent number of total contributions, indicating a good level of activity on Github. However, to improve, it is suggested to increase the frequency and quality of contributions, and to explore different types of contributions such as pull requests, issues, and commits.",
-    "Consider adding a professional photo and a concise headline to make the profile more appealing. Also, include more details in the summary section to highlight your career goals, key skills, and achievements in a cohesive manner."
-  ]
-}
+  {
+    "candidate_name": "Sanskar_Gundecha_03",
+    "leetcode_score": 8.5,
+    "github_score": 8,
+    "linkedin_score": 8.5,
+    "strengths": [
+      "Active engagement in updating professional network",
+      "Demonstrated expertise in back-end engineering, problem-solving, and coding platforms (Ridecell, CodeChef, LeetCode)",
+      "Certified skills in SQL and data management",
+      "Proactively seeking learning opportunities (Web Development Intern at Prodigy InfoTech, SQL Certification Course)"
+    ],
+    "suggestions": [
+      "Continue to practice and improve problem-solving skills, especially in hard difficulty problems.",
+      "Expand language skills beyond Java, as only 5 problems have been solved in C++ and 1 in JavaScript.",
+      "Participate in more contests to improve ranking and top percentage.",
+      "Focus on improving skills in advanced tags such as Game Theory, Bitmask, and Quickselect.",
+      "Practice more problems in fundamental tags such as Matrix, Simulation, and Enumeration to improve overall problem-solving skills.",
+      "The candidate has a decent number of total contributions, indicating a good level of activity on Github. However, to improve, it is suggested to increase the frequency and quality of contributions, and to explore different types of contributions such as pull requests, issues, and commits.",
+      "Consider adding a professional photo and a concise headline to make the profile more appealing. Also, include more details in the summary section to highlight your career goals, key skills, and achievements in a cohesive manner."
+    ]
+  }
