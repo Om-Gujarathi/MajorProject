@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-import json
 
 from resume_swot_analyse import analyze_resume
+from utils.combine import combine_json_files
 
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -35,21 +36,9 @@ def upload():
 
 
 @app.route('/rank', methods=['GET'])
-def status(job_id):
-    file_path = "profile-reports/resume_review.json"
-
-    try:
-        if job_id == "completed":  # Mock status check for demonstration
-            # Load JSON data from file
-            with open(file_path, 'r', encoding='utf-8') as file:
-                file_data = json.load(file)
-            return jsonify({"status": "completed", "result": file_data})
-        else:
-            return jsonify({"status": "unknown job ID"}), 404
-    except FileNotFoundError:
-        return jsonify({"status": "error", "message": "Result file not found."}), 500
-    except json.JSONDecodeError:
-        return jsonify({"status": "error", "message": "Error decoding JSON data."}), 500
+def status():
+    result = combine_json_files("Jobs/")
+    return jsonify({"status": "completed", "result": result})
 
 
 if __name__ == '__main__':
